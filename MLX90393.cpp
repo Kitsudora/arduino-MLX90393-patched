@@ -45,6 +45,7 @@ begin(uint8_t A1, uint8_t A0, int DRDY_pin, TwoWire &wirePort)
   }
 
   _i2cPort = &wirePort; //Grab which port the user wants us to use
+  _i2cPort->begin(); // NEED THIS LINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   uint8_t status1 = checkStatus(reset());
   uint8_t status2 = setGainSel(7);
