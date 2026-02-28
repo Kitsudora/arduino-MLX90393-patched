@@ -339,8 +339,8 @@ convertRaw(MLX90393::txyzRaw raw)
   float gain_factor = gain_multipliers[gain_sel & 0x7];
 
   if (tcmp_en){
-    data.x = ( (raw.x - 32768.f) * xy_sens *
-               gain_factor * (1 << res_x) );
+    const int32_t x = -static_cast<int32_t>(static_cast<int16_t>(raw.x));
+    data.x = (x * xy_sens * gain_factor * (1 << res_x));
   } else {
     switch(res_x){
     case 0:
@@ -359,8 +359,8 @@ convertRaw(MLX90393::txyzRaw raw)
   }
 
   if (tcmp_en){
-    data.y = ( (raw.y - 32768.f) * xy_sens *
-               gain_factor * (1 << res_y) );
+    const int32_t y = -static_cast<int32_t>(static_cast<int16_t>(raw.y));
+    data.y = (y * xy_sens * gain_factor * (1 << res_y));
   } else {
     switch(res_y){
     case 0:
@@ -379,8 +379,8 @@ convertRaw(MLX90393::txyzRaw raw)
   }
 
   if (tcmp_en){
-    data.z = ( (raw.z - 32768.f) * z_sens *
-               gain_factor * (1 << res_z) );
+    const int32_t z = -static_cast<int32_t>(static_cast<int16_t>(raw.z));
+    data.z = (z * z_sens * gain_factor * (1 << res_z));
   } else {
     switch(res_z){
     case 0:
